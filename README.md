@@ -1,8 +1,8 @@
-Kafka Streaming-Pyspark 
+Kafka Streaming-Pyspark
 ================
 ## Description
 
-We have implemented Python Kafka Spark Streaming. 
+We have implemented Python Kafka Spark Streaming.
 
 # Requirements
 
@@ -33,10 +33,10 @@ $ ./sbin/start-slaves.sh <Spark Master URL>
 
 $  bin/spark-submit --master <SPARK MASTER URL> --jars <PATH TO JAR>spark-streaming-kafka_2.10-1.6.0.jar
         ,<PATH TO JAR>spark-streaming-kafka-assembly_2.10-1.6.0.jar,<PATH TO JAR>/spark-streaming_2.10-1.6.0.jar
-        ,<PATH TO JAR>/spark-core_2.10-1.6.0.jar,<PATH TO JAR>/kafka_2.10-0.9.0.0.jar 
+        ,<PATH TO JAR>/spark-core_2.10-1.6.0.jar,<PATH TO JAR>/kafka_2.10-0.9.0.0.jar
         Kafka-Streaming-Pyspark/kafka-stream/kafka_stream.py localhost 9999
 ```
 # Note
 
-* Jar are present in the lib folder and if you have different version then please download it from Maven remote 
+* Jar are present in the lib folder and if you have different version then please download it from Maven remote
 repositories.

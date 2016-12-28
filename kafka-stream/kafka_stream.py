@@ -8,6 +8,7 @@ from properties import BROKER, TOPIC, DURATION, APPNAME, MASTER, FILE
 
 
 class KafkaStream(object):
+
     def __init__(self):
         self.sparkConf = SparkConf()
         self.sparkConf.set("spark.driver.allowMultipleContexts", "true")
@@ -25,13 +26,18 @@ class KafkaStream(object):
             return False
         return False
 
+    @classmethod
+    def getData(cls, time, rdd):
+        return rdd[1]
+
     def start_stream(self):
         spark_context = SparkContext(master=MASTER, appName=APPNAME, conf=self.sparkConf)
         stream_context = StreamingContext(spark_context, batchDuration=DURATION)
         data_stream = KafkaUtils.createDirectStream(stream_context, topics=[TOPIC],
                                                     kafkaParams={"metadata.broker.list": BROKER})
         filter_values = data_stream.filter(KafkaStream.filter_rdd)
-        filter_values.pprint()
+        store = filter_values.transform(KafkaStream.getData)
+        store.pprint()
         stream_context.start()
         stream_context.awaitTermination()
 
@@ -40,7 +46,7 @@ class KafkaStream(object):
         json_match_value = {}
         with open(FILE, 'r') as file:
             json_data = json.load(file)
-            json_match_value["ACTIONID"]=json_data.get("ACTIONID")
+            json_match_value["ACTIONID"] = json_data.get("ACTIONID")
         return json_match_value
 
 
